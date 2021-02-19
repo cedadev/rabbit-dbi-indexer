@@ -7,7 +7,7 @@ idna==2.10
 pika==1.1.0
 python-dateutil==2.8.1
 PyYAML==5.4.1
-git+https://github.com/cedadev/rabbit-index-ingest.git@3ab5a6a5ce814a82a8c005e0ccb0ece29bcbdcb2#egg=rabbit_indexer
+git+https://github.com/cedadev/rabbit-index-ingest.git@6287e6f6cba56680d634a161ab7eeafbf8ab3930#egg=rabbit_indexer
 requests==2.25.1
 six==1.15.0
 tqdm==4.57.0
