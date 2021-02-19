@@ -90,7 +90,7 @@ setup(
     zip_safe=False,
     entry_points={
         'console_scripts': [
-            'rabbit_event_indexer = rabbit_dbi_elastic_indexer.slow_dbi_indexer:main',
+            'rabbit_dbi_indexer = rabbit_dbi_elastic_indexer.slow_dbi_indexer:main',
         ],
     }
 )
