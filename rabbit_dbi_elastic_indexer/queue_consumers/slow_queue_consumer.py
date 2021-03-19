@@ -3,19 +3,17 @@
 
 """
 __author__ = 'Richard Smith'
-__date__ = '17 Feb 2021'
+__date__ = '19 Mar 2021'
 __copyright__ = 'Copyright 2018 United Kingdom Research and Innovation'
 __license__ = 'BSD - see LICENSE file in top-level package directory'
 __contact__ = 'richard.d.smith@stfc.ac.uk'
 
 from rabbit_indexer.queue_handler import QueueHandler
 from rabbit_indexer.utils import PathTools
-from rabbit_indexer.utils.consumer_setup import consumer_setup
 
-from rabbit_dbi_elastic_indexer.handlers.dbi_update_handler import DirectoryUpdateHandler
+from rabbit_dbi_elastic_indexer.handlers import DirectoryUpdateHandler
 
 import logging
-import functools
 
 logger = logging.getLogger()
 
@@ -52,8 +50,7 @@ class SlowDBIQueueConsumer(QueueHandler):
 
         except IndexError:
             # Acknowledge message
-            cb = functools.partial(self._acknowledge_message, ch, method.delivery_tag)
-            connection.add_callback_threadsafe(cb)
+            self.acknowledge_message(ch, method.delivery_tag, connection)
             return
 
         try:
@@ -67,18 +64,9 @@ class SlowDBIQueueConsumer(QueueHandler):
                 self.directory_handler.process_event(message)
 
             # Acknowledge message
-            cb = functools.partial(self._acknowledge_message, ch, method.delivery_tag)
-            connection.add_callback_threadsafe(cb)
+            self.acknowledge_message(ch, method.delivery_tag, connection)
 
         except Exception as e:
             # Catch all exceptions in the scanning code and log them
             logger.error(f'Error occurred while scanning: {message}', exc_info=e)
             raise
-
-
-def main():
-    consumer_setup(SlowDBIQueueConsumer, logger)
-
-
-if __name__ == '__main__':
-    main()

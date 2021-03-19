@@ -17,11 +17,8 @@ from ceda_elasticsearch_tools.index_tools import CedaDirs
 import os
 
 # Typing imports
-from typing import TYPE_CHECKING
-if TYPE_CHECKING:
-    from configparser import RawConfigParser
-    from rabbit_indexer.utils import PathTools
-    from rabbit_indexer.queue_handler.queue_handler import IngestMessage
+from rabbit_indexer.utils import PathTools
+from rabbit_indexer.queue_handler.queue_handler import IngestMessage
 
 
 class DirectoryUpdateHandler(UpdateHandler):
@@ -30,20 +27,14 @@ class DirectoryUpdateHandler(UpdateHandler):
     rabbit queue
     """
 
-    def __init__(self, path_tools: 'PathTools', conf: 'YamlConfig', refresh_interval: int = 30):
-        """
-
-        :param path_tools: An initialised rabbit_indexer.utils.PathTools object
-        :param conf: A read configparser.ConfigParser object
-        :param refresh_interval: Time in minutes before refreshing the mappings
-        """
-        super().__init__(path_tools, conf, refresh_interval)
+    def setup_extra(self, path_tools: PathTools, refresh_interval: int = 30, **kwargs):
+        super().setup_extra(path_tools, refresh_interval, **kwargs)
 
         # Initialise the Elasticsearch connection
         self.index_updater = CedaDirs(
-            index=conf.get('directory_index', 'name'),
+            index=self.conf.get('directory_index', 'name'),
             **{'headers': {
-                'x-api-key': conf.get('elasticsearch', 'es-api-key')
+                'x-api-key': self.conf.get('elasticsearch', 'es-api-key')
             },
                 'retry_on_timeout': True,
                 'timeout': 30
@@ -155,3 +146,46 @@ class DirectoryUpdateHandler(UpdateHandler):
                     }
                 ]
             )
+
+
+class FastDirectoryUpdateHandler(DirectoryUpdateHandler):
+
+    def _process_creations(self, message: 'IngestMessage'):
+
+        # Get the metadata
+        metadata, _ = self.pt.generate_path_metadata(message.filepath)
+
+        # Index new directory
+        if metadata:
+            self.index_updater.add_dirs(
+                [
+                    {
+                        'id': self.pt.generate_id(message.filepath),
+                        'document': metadata
+                    }
+                ]
+            )
+        else:
+            self.index_updater.add_dirs(
+                [
+                    {
+                        'id': self.pt.generate_id(message.filepath),
+                        'document': self._generate_doc_from_message(message.filepath)
+                    }
+                ]
+            )
+
+    @staticmethod
+    def _generate_doc_from_message(path: str) -> dict:
+        """
+        Generate directory document from path without checking file system attributes
+
+        :param path: filepath
+        :return: document metadata
+        """
+        return {
+            'depth': path.count('/'),
+            'path': path,
+            'type': 'dir',
+            'dir': os.path.basename(path)
+        }

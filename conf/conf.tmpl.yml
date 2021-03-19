@@ -1,5 +1,6 @@
 ---
 rabbit_server:
+  queue_consumer_class: rabbit_dbi_elastic_indexer.queue_consumers.FastDBIQueueConsumer
   name: *
   user: *
   password: *
