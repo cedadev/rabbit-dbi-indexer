@@ -1,4 +1,4 @@
-git+https://github.com/cedadev/ceda-elasticsearch-tools@f7cd0ab6b94026b6f4d160f7ba5e110813c1a370#egg=ceda-elasticsearch-tools
+ceda-elasticsearch-tools==2.3.1
 certifi==2020.12.5
 chardet==4.0.0
 docopt==0.6.2
@@ -7,7 +7,7 @@ idna==2.10
 pika==1.1.0
 python-dateutil==2.8.1
 PyYAML==5.4.1
-git+https://github.com/cedadev/rabbit-index-ingest.git@6287e6f6cba56680d634a161ab7eeafbf8ab3930#egg=rabbit_indexer
+git+https://github.com/cedadev/rabbit-index-ingest.git@0fc1d7956fdeb69f3e01aea2a3e883d37d99839d#egg=rabbit_indexer
 requests==2.25.1
 six==1.15.0
 tqdm==4.57.0

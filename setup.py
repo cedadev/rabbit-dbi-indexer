@@ -48,13 +48,10 @@ setup(
         ],
     },
     install_requires=[
-        'requests',
         'pika',
         'pyyaml',
         'rabbit_indexer',
         'ceda_elasticsearch_tools',
-        'python-dateutil',
-        'tqdm'
     ],
 
     # This qualifier can be used to selectively exclude Python versions -
