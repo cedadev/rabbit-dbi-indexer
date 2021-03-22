@@ -48,8 +48,6 @@ setup(
         ],
     },
     install_requires=[
-        'pika',
-        'pyyaml',
         'rabbit_indexer',
         'ceda_elasticsearch_tools',
     ],
