@@ -28,8 +28,10 @@ class SlowDBIQueueConsumer(QueueHandler):
     def get_handlers(self):
         moles_obs_map_url = self.conf.get("moles", "moles_obs_map_url")
 
+        logger.info('Downloading MOLES mapping')
         path_tools = PathTools(moles_mapping_url=moles_obs_map_url)
 
+        logger.info('Initialising directory handler')
         self.directory_handler = DirectoryUpdateHandler(path_tools=path_tools, conf=self.conf)
 
     def callback(self, ch, method, properties, body, connection):
