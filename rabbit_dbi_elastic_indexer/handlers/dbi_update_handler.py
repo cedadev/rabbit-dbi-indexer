@@ -34,7 +34,7 @@ class DirectoryUpdateHandler(UpdateHandler):
         self.index_updater = CedaDirs(
             index=self.conf.get('directory_index', 'name'),
             **{'headers': {
-                'x-api-key': self.conf.get('elasticsearch', 'es-api-key')
+                'x-api-key': self.conf.get('elasticsearch', 'es_api_key')
             },
                 'retry_on_timeout': True,
                 'timeout': 30
