@@ -12,7 +12,7 @@ Watched events:
 ## Configuration
 
 Configuration is handled using a YAML file. The full configuration options 
-are described in the [rabbit_indexer repo](https://github.com/cedadev/rabbit-index-ingest/blob/master/README.md#configuration)
+are described in the [rabbit_indexer repo](https://github.com/cedadev/rabbit-index-ingest/blob/master/README.md#rabbit_event_indexer)
 
 The required sections for the dbi indexer are:
 - rabbit_server
@@ -54,3 +54,10 @@ directory_index:
   name: ceda-dirs
 
 ```
+
+## Running
+
+The indexer can be run using the helper script provided by [rabbit_indexer repo](https://github.com/cedadev/rabbit-index-ingest/blob/master/README.md#configuration).
+This uses an entry script and parses the config file to run your selected queue_consumer_class: 
+
+`rabbit_event_indexer --conf <path_to_configuration_file>`
