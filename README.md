@@ -43,11 +43,11 @@ rabbit_server:
       kwargs:
         auto_delete: false
 rabbit_indexer:
-  queue_consumer_class: rabbit_dbi_elastic_indexer.queue_consumers.DBIQueueConsumer
+  queue_consumer_class: rabbit_dbi_elastic_indexer.queue_consumers.SlowDBIQueueConsumer
 logging:
   log_level: info
 moles:
-  moles_obs_map_url: http://api.catalogue.ceda.ac.uk/api/v2/observations.json/?publicationState__in=citable,published,preview,removed
+    moles_obs_map_url: http://api.catalogue.ceda.ac.uk/api/v2/observations.json/?publicationState__in=citable,published,preview,removed&fields=publicationState,result_field,title,uuid
 elasticsearch:
   es_api_key: "*****"
 directory_index:

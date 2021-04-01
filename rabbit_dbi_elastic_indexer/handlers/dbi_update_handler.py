@@ -27,8 +27,26 @@ class DirectoryUpdateHandler(UpdateHandler):
     rabbit queue
     """
 
-    def setup_extra(self, path_tools: PathTools, refresh_interval: int = 30, **kwargs):
-        super().setup_extra(path_tools, refresh_interval, **kwargs)
+    def __init__(self, conf, **kwargs):
+        """
+        Add the index updater attribute
+
+        :param conf: YamlConfig object
+        :param kwargs: kwargs passed to setup_extra
+        """
+        self.index_updater = None
+
+        super().__init__(conf, **kwargs)
+
+    def setup_extra(self, refresh_interval: int = 30, **kwargs):
+        """
+        Extra setup for the class
+
+        :param path_tools: PathTools object to provide path mapping and lookups
+        :param refresh_interval: Interval in minutues before refreshing cached lookups
+        :return:
+        """
+        super().setup_extra(refresh_interval, **kwargs)
 
         # Initialise the Elasticsearch connection
         self.index_updater = CedaDirs(

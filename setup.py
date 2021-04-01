@@ -83,9 +83,4 @@ setup(
         'Topic :: Software Development :: Libraries :: Python Modules'
     ],
     zip_safe=False,
-    entry_points={
-        'console_scripts': [
-            'rabbit_dbi_indexer = rabbit_dbi_elastic_indexer.slow_dbi_indexer:main',
-        ],
-    }
 )

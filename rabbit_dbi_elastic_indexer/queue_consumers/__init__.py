@@ -8,5 +8,4 @@ __copyright__ = 'Copyright 2018 United Kingdom Research and Innovation'
 __license__ = 'BSD - see LICENSE file in top-level package directory'
 __contact__ = 'richard.d.smith@stfc.ac.uk'
 
-from .slow_queue_consumer import SlowDBIQueueConsumer
-from .fast_queue_consumer import FastDBIQueueConsumer
+from .dbi_queue_consumer import SlowDBIQueueConsumer, FastDBIQueueConsumer
