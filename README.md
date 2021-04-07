@@ -42,7 +42,7 @@ rabbit_server:
     - name: elasticsearch_dbi_update_queue
       kwargs:
         auto_delete: false
-rabbit_indexer:
+indexer:
   queue_consumer_class: rabbit_dbi_elastic_indexer.queue_consumers.SlowDBIQueueConsumer
 logging:
   log_level: info
