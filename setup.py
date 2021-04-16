@@ -8,15 +8,6 @@ __copyright__ = 'Copyright 2018 United Kingdom Research and Innovation'
 __license__ = 'BSD - see LICENSE file in top-level package directory'
 __contact__ = 'richard.d.smith@stfc.ac.uk'
 
-# encoding: utf-8
-"""
-Setup for rabbit based indexer
-"""
-__author__ = 'Richard Smith'
-__date__ = '02 May 2019'
-__copyright__ = 'Copyright 2018 United Kingdom Research and Innovation'
-__license__ = 'BSD - see LICENSE file in top-level package directory'
-__contact__ = 'richard.d.smith@stfc.ac.uk'
 
 from setuptools import setup, find_packages
 
@@ -37,7 +28,7 @@ setup(
     description='RabbitMQ consuming programme to process deposit server events and update the ES directory index.',
     author='Richard Smith',
     author_email='richard.d.smith@stfc.ac.uk',
-    url='https://github.com/cedadev//',
+    url='https://github.com/cedadev/rabbit-dbi-indexer',
     long_description=_long_description,
     long_description_content_type='text/markdown',
     license='BSD - See rabbit_indexer/LICENSE file for details',
