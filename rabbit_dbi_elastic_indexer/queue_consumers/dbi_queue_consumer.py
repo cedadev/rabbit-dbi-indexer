@@ -37,8 +37,9 @@ class DBIQueueConsumer(QueueHandler):
 
             message = self.decode_message(body)
 
-        except IndexError:
+        except IndexError as e:
             # Acknowledge message
+            logger.warning(f'Error reading message: {e}')
             self.acknowledge_message(ch, method.delivery_tag, connection)
             return
 
