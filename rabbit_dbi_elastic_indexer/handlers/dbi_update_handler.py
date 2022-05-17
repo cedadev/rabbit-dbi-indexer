@@ -113,6 +113,8 @@ class DirectoryUpdateHandler(UpdateHandler):
                     }
                 ]
             )
+        else:
+            self.logger.info(f"Path does not yet exist: {message.filepath}")
 
     def _process_deletions(self, path: str):
         """
