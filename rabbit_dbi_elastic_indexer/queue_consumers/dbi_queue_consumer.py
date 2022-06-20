@@ -40,6 +40,7 @@ class DBIQueueConsumer(QueueHandler):
         except IndexError as e:
             # Acknowledge message
             logger.warning(f'Error reading message {body}: {e}')
+            self.acknowledge_message(ch, method.delivery_tag, connection)
             return
 
         try:
