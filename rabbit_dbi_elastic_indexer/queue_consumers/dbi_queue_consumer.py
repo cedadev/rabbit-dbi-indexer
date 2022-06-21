@@ -32,6 +32,8 @@ class DBIQueueConsumer(QueueHandler):
         :param body: Message body
         :param connection: Pika connection
         """
+        
+        logger.warning(f'Processing message: {body}')
 
         try:
 
@@ -39,7 +41,7 @@ class DBIQueueConsumer(QueueHandler):
 
         except IndexError as e:
             # Acknowledge message
-            logger.warning(f'Error reading message {body}: {e}')
+            logger.warning(f'Error reading message: {e}')
             self.acknowledge_message(ch, method.delivery_tag, connection)
             return
 
@@ -58,7 +60,7 @@ class DBIQueueConsumer(QueueHandler):
 
         except Exception as e:
             # Catch all exceptions in the scanning code and log them
-            logger.error(f'Error occurred while scanning: {message}', exc_info=e)
+            logger.error(f'Error occurred while scanning: ', exc_info=e)
             raise
 
 
