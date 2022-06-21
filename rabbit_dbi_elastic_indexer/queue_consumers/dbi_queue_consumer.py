@@ -33,7 +33,7 @@ class DBIQueueConsumer(QueueHandler):
         :param connection: Pika connection
         """
         
-        logger.warning(f'Processing message: {body}')
+        logger.info(f'Processing message: {body}')
 
         try:
 
@@ -44,6 +44,8 @@ class DBIQueueConsumer(QueueHandler):
             logger.warning(f'Error reading message: {e}')
             self.acknowledge_message(ch, method.delivery_tag, connection)
             return
+        
+        logger.info(f'decoded message: {message}')
 
         try:
 
