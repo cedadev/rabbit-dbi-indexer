@@ -14,7 +14,8 @@ from rabbit_dbi_elastic_indexer.handlers import DirectoryUpdateHandler, FastDire
 
 import logging
 
-logger = logging.getLogger()
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
 
 
 class DBIQueueConsumer(QueueHandler):
