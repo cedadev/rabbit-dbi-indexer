@@ -15,7 +15,6 @@ from rabbit_dbi_elastic_indexer.handlers import DirectoryUpdateHandler, FastDire
 import logging
 
 logger = logging.getLogger(__name__)
-logger.setLevel(logging.INFO)
 
 
 class DBIQueueConsumer(QueueHandler):
@@ -42,11 +41,9 @@ class DBIQueueConsumer(QueueHandler):
 
         except IndexError as e:
             # Acknowledge message
-            logger.warning(f'Error reading message: {e}')
+            logger.warning(f'Error decoding message: {body} : {e}')
             self.acknowledge_message(ch, method.delivery_tag, connection)
             return
-        
-        logger.info(f'decoded message: {message}')
 
         try:
 
