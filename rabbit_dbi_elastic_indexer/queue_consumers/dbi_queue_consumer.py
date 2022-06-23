@@ -14,7 +14,7 @@ from rabbit_dbi_elastic_indexer.handlers import DirectoryUpdateHandler, FastDire
 
 import logging
 
-logger = logging.getLogger()
+logger = logging.getLogger(__name__)
 
 
 class DBIQueueConsumer(QueueHandler):
@@ -33,7 +33,7 @@ class DBIQueueConsumer(QueueHandler):
         :param connection: Pika connection
         """
         
-        logger.warning(f'Processing message: {body}')
+        logger.info(f'Processing message: {body}')
 
         try:
 
@@ -41,7 +41,7 @@ class DBIQueueConsumer(QueueHandler):
 
         except IndexError as e:
             # Acknowledge message
-            logger.warning(f'Error reading message: {e}')
+            logger.warning(f'Error decoding message: {body} : {e}')
             self.acknowledge_message(ch, method.delivery_tag, connection)
             return
 
